@@ -1,6 +1,23 @@
 [package]
 name = "contract"
 version = "0.1.0"
-edition = "2024"
+edition = "2021"
 
 [dependencies]
+# Stylus SDK
+stylus-sdk = { version = "0.5.2", features = ["export-abi"] }
+
+# Required by the SDK
+alloy-primitives = "0.7.1"
+mini-keccak = { version = "0.4.0", features = ["std"] }
+hex = "0.4.3"
+
+[lib]
+crate-type = ["cdylib", "rlib"] # Configures for WASM (cdylib)
+
+[profile.release]
+codegen-units = 1
+lto = true
+opt-level = "z"
+panic = "abort"
+strip = true
